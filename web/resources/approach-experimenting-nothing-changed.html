@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>We've been experimenting with AI and nothing has changed — approach guide | Neural Studio Lab</title>
+    <meta name="description" content="How to diagnose why AI experiments fail: the four signals (clear bottleneck, system of record, named owner, authority to approve) and what's missing.">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">
+                    <span class="logo-icon">🧠</span>
+                    Neural Studio Lab
+                </a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../consulting.html">Services</a></li>
+                    <li><a href="../resources.html" class="active">Resources</a></li>
+                    <li><a href="../about.html">About</a></li>
+                </ul>
+                <a href="../assessment.html" class="btn btn-primary">Take the assessment</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="approach-header">
+            <div class="container">
+                <p class="approach-label">Approach guide — not a case study</p>
+                <h1>We've been experimenting with AI for months and nothing has changed</h1>
+                <p class="hero-tagline">The experiment never became a step in the workflow. Here's how to diagnose what's missing and what to do next.</p>
+            </div>
+        </section>
+
+        <!-- The Problem -->
+        <section class="container">
+            <h2>The problem (in buyer language)</h2>
+            <blockquote>
+                <p>"We've been playing with AI for months and nothing has changed."</p>
+            </blockquote>
+            <p>This is one of the three problems we work on. Not "AI transformation" — this specific one.</p>
+            <p>The experiment never became a step in the workflow.</p>
+        </section>
+
+        <!-- Why This Happens -->
+        <section class="container">
+            <h2>Why this happens (the real reasons)</h2>
+
+            <h3>1. No clear bottleneck</h3>
+            <p>You have ten things you could automate, but no ranking. Starting the wrong one is the expensive mistake, not starting late.</p>
+
+            <h3>2. No system of record</h3>
+            <p>Everything lives in inboxes and spreadsheets. There's no shared source of truth for the automation to pull from or write to.</p>
+
+            <h3>3. No named owner</h3>
+            <p>Nobody is responsible for running the workflow after handover. Without this, nothing we build has anywhere to land.</p>
+
+            <h3>4. No authority to approve</h3>
+            <p>There's no one who can approve roughly $3,000 without a committee. That's a governance question, not an AI question.</p>
+
+            <h3>5. No integration into daily work</h3>
+            <p>The AI tool is a separate tab, not embedded in the actual work. When the work happens, people revert to the old way because it's already there.</p>
+        </section>
+
+        <!-- How We'd Diagnose -->
+        <section class="container">
+            <h2>How we'd diagnose this</h2>
+
+            <h3>Step 1: Name the actual bottleneck (not the symptom)</h3>
+            
+            <h4>What we'd ask:</h4>
+            <ul>
+                <li>What's the one task that happens most often and feels most repetitive?</li>
+                <li>Who does it? How long does it take? How many times per week?</li>
+                <li>What happens when it doesn't get done?</li>
+            </ul>
+
+            <h4>What we're looking for:</h4>
+            <ul>
+                <li>A specific workflow, not a category ("overdue invoice chasing" not "finance is inefficient")</li>
+                <li>A measurable volume ("40 invoices a week" not "a lot of invoices")</li>
+                <li>A clear owner ("Sarah in accounting" not "the finance team")</li>
+            </ul>
+
+            <p><strong>Why:</strong> You can't automate "everything." You start with one thing.</p>
+
+            <h3>Step 2: Check the four signals</h3>
+            <p>We score firms on four things that decide whether a build will stick:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Signal</th>
+                        <th>What It Means</th>
+                        <th>How We Check</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Clear bottleneck</strong></td>
+                        <td>One workflow you can name, with volume and owner</td>
+                        <td>Can you state it in one sentence with numbers?</td>
+                    </tr>
+                    <tr>
+                        <td><strong>System of record</strong></td>
+                        <td>A CRM or shared system, not just inboxes</td>
+                        <td>Where does the data live now? Can the automation read/write there?</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Named owner</strong></td>
+                        <td>Someone who will run the workflow after handover</td>
+                        <td>Who will be trained? Who will monitor it?</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Authority to approve</strong></td>
+                        <td>One person who can say yes to ~$3,000</td>
+                        <td>Who signs off? How long does approval take?</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>What happens:</h4>
+            <ul>
+                <li>All four present → You're ready to build (Band A)</li>
+                <li>Three present, no ranking → You're ready but not focused (Band B)</li>
+                <li>Missing one or more → You need to fix that first (Band C or D)</li>
+            </ul>
+
+            <h3>Step 3: Identify what's missing</h3>
+            <p>Based on the score, we'd tell you exactly what's blocking you:</p>
+
+            <p><strong>If you're missing a system of record:</strong><br>
+            "Your firm doesn't yet have a shared system of record. Pick one — even a simple CRM — and get it running before you automate anything else."</p>
+
+            <p><strong>If you have no named owner:</strong><br>
+            "There's no one who would own this workflow after handover. Name that person before you build. If nobody will own it, nothing we build has anywhere to land."</p>
+
+            <p><strong>If you have no authority:</strong><br>
+            "There's no one who can approve roughly $3,000 without a committee. That's a governance question, not an AI question. Fix that first."</p>
+
+            <p><strong>If you have no clear bottleneck:</strong><br>
+            "You have ten things you could do and no ranking. That's exactly what the $950 audit exists for — three candidates ranked and costed, with a build spec for the winner."</p>
+        </section>
+
+        <!-- How We'd Build It -->
+        <section class="container">
+            <h2>How we'd build it (once the missing piece is fixed)</h2>
+
+            <h3>Phase 1: Scope (1 week)</h3>
+            <ul>
+                <li>Define the trigger: What starts the workflow?</li>
+                <li>Map the steps: Every step, in order, as it happens now</li>
+                <li>Identify the tools: What systems are involved?</li>
+                <li>Define "working": What does success look like in testable terms?</li>
+                <li>Set boundaries: At most three systems, at most ten steps, one trigger</li>
+            </ul>
+            <p><strong>Deliverable:</strong> A one-page build spec that you accept before we start any work.</p>
+
+            <h3>Phase 2: Build (3-4 weeks)</h3>
+            <ul>
+                <li>Configure the automation platform (n8n or equivalent)</li>
+                <li>Connect the systems via API or webhook</li>
+                <li>Implement error handling and fallback paths</li>
+                <li>Build the monitoring and alerting</li>
+                <li>Document the failure modes and what to do about each</li>
+            </ul>
+            <p><strong>What you see:</strong> Weekly check-ins, not daily status reports. We're building, not presenting.</p>
+
+            <h3>Phase 3: Handover (1 week)</h3>
+            <ul>
+                <li>Train the named owner on how to monitor and maintain the workflow</li>
+                <li>Walk through the failure modes and what to do</li>
+                <li>Run the workflow in parallel with the old way for 1 week</li>
+                <li>Confirm the metric improved (e.g., "follow-up time dropped from 3 days to 4 hours")</li>
+            </ul>
+            <p><strong>Deliverable:</strong> A written runbook and a trained owner.</p>
+
+            <h3>Phase 4: Hypercare (2 weeks)</h3>
+            <ul>
+                <li>Anything we built that breaks, we fix, free</li>
+                <li>Adjustments based on real usage</li>
+                <li>Final sign-off</li>
+            </ul>
+            <p><strong>After that:</strong> You own it. We don't become a dependency.</p>
+        </section>
+
+        <!-- What We'd Exclude -->
+        <section class="container">
+            <h2>What we'd exclude (by design)</h2>
+            <ol>
+                <li><strong>No custom software</strong> — We compose tools that already exist</li>
+                <li><strong>No model training</strong> — We use hosted models, not custom ML</li>
+                <li><strong>No multi-workflow builds</strong> — We don't start a second until the first is running</li>
+                <li><strong>No open-ended scope</strong> — The bound is three systems, ten steps, one trigger</li>
+                <li><strong>No regulated data</strong> — If the core is patient records, cardholder data, or privileged discovery, we decline</li>
+            </ol>
+        </section>
+
+        <!-- Cost and Timeline -->
+        <section class="container">
+            <h2>Rough cost and timeline</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Phase</th>
+                        <th>Cost</th>
+                        <th>Timeline</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Scoping (AI Opportunity Audit)</td>
+                        <td>$950</td>
+                        <td>8 business days</td>
+                    </tr>
+                    <tr>
+                        <td>Build (First Workflow Build)</td>
+                        <td>$4,500</td>
+                        <td>5 weeks</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td><strong>Total</strong></td>
+                        <td><strong>$5,450</strong></td>
+                        <td><strong>~7 weeks</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Founding rate:</strong> First three builds at $2,950 instead of $4,500 (saves $1,550; requires permission to publish the workflow we built)</p>
+            <p><strong>What's not included:</strong> Tool licences, API usage, any work outside the spec you accepted.</p>
+        </section>
+
+        <!-- Success Criteria -->
+        <section class="container">
+            <h2>What success looks like</h2>
+
+            <h3>In 8 weeks:</h3>
+            <ul>
+                <li>One workflow runs in daily use without your involvement</li>
+                <li>The named owner can monitor it and handle the common failure modes</li>
+                <li>The metric improved (e.g., "follow-up time dropped from 3 days to 4 hours")</li>
+                <li>You have a written runbook for the failure modes</li>
+            </ul>
+
+            <h3>In 6 months:</h3>
+            <ul>
+                <li>The workflow is still running (not abandoned)</li>
+                <li>You're measuring its impact (not just hoping it works)</li>
+                <li>You're ready to discuss the next workflow (if there is one)</li>
+            </ul>
+        </section>
+
+        <!-- When We'd Say No -->
+        <section class="container">
+            <h2>What we'd say "no" to</h2>
+
+            <p><strong>If you say:</strong> "We need it live in under a month."<br>
+            <strong>We'd say:</strong> "Then we're the wrong choice. An automation freelancer or a Make/Zapier partner will do it cheaper and sooner. We're worth paying when the hard part is deciding what to build, not building it."</p>
+
+            <p><strong>If you say:</strong> "We want a strategy document."<br>
+            <strong>We'd say:</strong> "We don't sell strategy without shipping. Our free assessment gives you a diagnosis; the $950 audit gives you a ranked shortlist. Beyond that, you want a different shop."</p>
+
+            <p><strong>If you say:</strong> "We have regulated data."<br>
+            <strong>We'd say:</strong> "We decline that work. You need a firm with a compliance function. We're not it."</p>
+
+            <p><strong>If you say:</strong> "We want to build a custom model."<br>
+            <strong>We'd say:</strong> "We don't do that. We compose tools that already exist. If you need custom ML, you need a data science firm, not an automation firm."</p>
+        </section>
+
+        <!-- The Honest Truth -->
+        <section class="container">
+            <h2>The honest truth</h2>
+            <p>Most firms that say "nothing has changed" are missing one of the four signals. The assessment will tell you which one.</p>
+            <p>If you're missing a system of record, a CRM will fix that before any AI does.</p>
+            <p>If you have no named owner, naming that person will fix that before any build does.</p>
+            <p>If you have no authority, fixing the governance will fix that before any automation does.</p>
+            <p><strong>The AI is the easy part.</strong> The hard part is the organizational piece that has to be in place first.</p>
+        </section>
+
+        <!-- Closing CTA -->
+        <section class="cta-section">
+            <div class="container">
+                <h2>Find out which signal you're missing</h2>
+                <p>The free assessment will score which of the four signals you're missing — or tell you that you have all four and you're ready to build.</p>
+                <a href="../assessment.html" class="btn btn-primary btn-lg">Take the free assessment</a>
+                <p style="margin-top: 1.5rem;"><a href="../consulting.html">See the two engagements</a> — AI Opportunity Audit ($950) and First Workflow Build ($4,500)<br>
+                <a href="teardown-inbound-lead-qualification.html">Read the workflow teardowns</a> — reference designs for the workflows we build most often</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="../index.html" class="logo"><span class="logo-icon">🧠</span> Neural Studio Lab</a>
+                    <p>AI implementation for owner-led firms of 5–50 people.</p>
+                    <p class="footer-honesty">A new practice. No case studies, no client logos — our method and our reference designs are published on the Resources page instead.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Neural Studio Lab is a registered entity. No public contact address is published; use the assessment form for enquiries.</p>
+                <p>&copy; 2024 Neural Studio Lab. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

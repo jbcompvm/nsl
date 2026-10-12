@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Strategy Assessment — Neural Studio Lab</title>
+    <meta name="description" content="Free AI readiness assessment for mid-market manufacturers and healthcare providers. 8 strategic questions, scored instantly.">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <span class="logo-icon">🧠</span>
+                    Neural Studio Lab
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="consulting.html">Services</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+                <a href="assessment.html" class="btn btn-primary">Take the assessment</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="assessment-header">
+            <div class="container">
+                <h1>Find out whether your organization is actually ready to make AI stick</h1>
+                <p class="hero-tagline">
+                    8 strategic questions, about 3 minutes. You get a scored result and written diagnosis regardless of whether we ever speak.
+                </p>
+                <p class="assessment-honesty">
+                    <strong>Fair warning: this assessment is designed to tell you "not ready" if that's the truth.</strong> Roughly six in ten organizations score below the threshold for paid engagement. We'd rather tell you that in three minutes than three weeks into a failed build.
+                </p>
+                <div class="assessment-meta">
+                    <span>⏱️ ~3 minutes</span>
+                    <span>📊 8 strategic questions</span>
+                    <span>📥 Scored instantly</span>
+                    <span>🎯 Personalized recommendations</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+                </div>
+                <div class="progress-steps">
+                    <span id="questionCounter">0 / 8</span>
+                    <span id="progressPercent">0% Complete</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <form id="assessmentForm" class="assessment-form">
+                <!-- Section 1: Contact Information -->
+                <fieldset class="form-section" data-section="1">
+                    <legend>Let's start with some basics</legend>
+                    
+                    <div class="form-group">
+                        <label for="name">Your name *</label>
+                        <input type="text" id="name" name="contact.name" required placeholder="Your full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Work email *</label>
+                        <input type="email" id="email" name="contact.email" required placeholder="john@company.com">
+                        <span class="question-hint">Where your scored diagnosis goes.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company">Firm name *</label>
+                        <input type="text" id="company" name="contact.company" required placeholder="Your organization">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="industry">What kind of work does the firm do? *</label>
+                        <input type="text" id="industry" name="contact.industry" required placeholder="e.g., manufacturing, healthcare, consulting">
+                        <span class="question-hint">We specialize in mid-market manufacturing and healthcare. Other industries may not be a fit.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="companySize">How many people work there? *</label>
+                        <select id="companySize" name="contact.company_size" required>
+                            <option value="">Select size</option>
+                            <option value="1-10">1-10 employees</option>
+                            <option value="11-50">11-50 employees</option>
+                            <option value="51-200">51-200 employees</option>
+                            <option value="201-500">201-500 employees</option>
+                            <option value="500+">500+ employees</option>
+                        </select>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-primary" onclick="nextSection(2)">Continue</button>
+                    </div>
+                </fieldset>
+
+                <!-- Section 2: Q1 - AI/ML Initiative Status -->
+                <fieldset class="form-section" data-section="2" style="display: none;">
+                    <legend>Current AI/ML Initiative Status</legend>
+                    <p class="section-intro">This measures where you are in the AI journey and identifies the primary bottleneck.</p>
+
+                    <div class="form-group">
+                        <label>
+                            Q1. Where does your organization stand with AI/ML initiatives?
+                        </label>
+                        <div class="rating-scale">
+                            <label><input type="radio" name="answers.q1" value="haven't_started" required> We haven't started yet, but we're researching options</label>
+                            <label><input type="radio" name="answers.q1" value="proof_of_concept"> We have 1-2 proof-of-concepts in progress</label>
+                            <label><input type="radio" name="answers.q1" value="production"> We have production AI/ML models serving customers</label>
+                            <label><input type="radio" name="answers.q1" value="optimized"> AI is embedded across multiple business functions</label>
+                        </div>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-secondary" onclick="prevSection(1)">Back</button>
+                        <button type="button" class="btn btn-primary" onclick="nextSection(3)">Continue</button>
+                    </div>
+                </fieldset>
+
+                <!-- Section 3: Q2 - Primary Business Objective -->
+                <fieldset class="form-section" data-section="3" style="display: none;">
+                    <legend>Primary Business Objective for AI</legend>
+                    <p class="section-intro">This identifies the "job to be done" and helps us assess value alignment.</p>
+
+                    <div class="form-group">
+                        <label>
+                            Q2. What is your primary business objective for AI?
+                        </label>
+                        <div class="rating-scale">
+                            <label><input type="radio" name="answers.q2" value="cost_reduction" required> Reduce operational costs / automate manual processes</label>
+                            <label><input type="radio" name="answers.q2" value="customer_experience"> Improve customer experience / personalization</label>
+                            <label><input type="radio" name="answers.q2" value="new_revenue"> Create new revenue streams / business models</label>
+                            <label><input type="radio" name="answers.q2" value="competitive"> Stay competitive / keep up with industry trends</label>
+                            <label><input type="radio" name="answers.q2" value="explore"> Explore what's possible / learn about AI capabilities</label>
+                        </div>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-secondary" onclick="prevSection(2)">Back</button>
+                        <button type="button" class="btn btn-primary" onclick="nextSection(4)">Continue</button>
+                    </div>
+                </fieldset>
+
+                <!-- Section 4: Q3 - Budget Readiness -->
+                <fieldset class="form-section" data-section="4" style="display: none;">
+                    <legend>Budget Readiness for AI Investment</legend>
+                    <p class="section-intro">This is the single strongest predictor of conversion to paid engagement.</p>
+
+                    <div class="form-group">
+                        <label>
+                            Q3. What is your budget readiness for AI investment?
+                        </label>
+                        <div class="rating-scale">
+                            <label><input type="radio" name="answers.q3" value="no_budget" required> No budget allocated - exploring options first</label>
+                            <label><input type="radio" name="answers.q3" value="preparing"> Budget is being prepared for next quarter</label>
+                            <label><input type="radio" name="answers.q3" value="approved"> Budget is approved and available now</label>
+                            <label><input type="radio" name="answers.q3" value="dedicated_fund"> We have a dedicated AI/innovation fund</label>
+                        </div>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-secondary" onclick="prevSection(3)">Back</button>
+                        <button type="button" class="btn btn-primary" onclick="nextSection(5)">Continue</button>
+                    </div>
+                </fieldset>
+
+                <!-- Section 5: Q4 - Timeline -->
+                <fieldset class="form-section" data-section="5" style="display: none;">
+                    <legend>Timeline for AI Initiative</legend>
+                    <p class="section-intro">This helps us assess urgency and prioritize leads.</p>
+
+                    <div class="form-group">
+                        <label>
+                            Q4. What is your timeline for the AI initiative?
+                        </label>
+                        <div class="rating-scale">
+                            <label><input type="radio" name="answers.q4" value="1_month" required> Within 1 month - we need to move quickly</label>
+                            <label><input type="radio" name="answers.q4" value="1_3_months"> 1-3 months - we have a clear start date</label>
+                            <label><input type="radio" name="answers.q4" value="3_6_months"> 3-6 months - we're in planning phase</label>
+                            <label><input type="radio" name="answers.q4" value="6_plus"> 6+ months / no specific timeline</label>
+                        </div>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-secondary" onclick="prevSection(4)">Back</button>
+                        <button type="button" class="btn btn-primary" onclick="nextSection(6)">Continue</button>
+                    </div>
+                </fieldset>
+
+                <!-- Section 6: Q5 - Decision-Making Authority -->
+                <fieldset class="form-section" data-section="6" style="display: none;">
+                    <legend>Decision-Making Authority</legend>
+                    <p class="section-intro">This identifies whether you can actually buy or if you're a gatekeeper.</p>
+
+                    <div class="form-group">
+                        <label>
+                            Q5. What is your decision-making authority for this type of investment?
+                        </label>
+                        <div class="rating-scale">
+                            <label><input type="radio" name="answers.q5" value="decision_maker" required> I am the final decision-maker for this type of investment</label>
+                            <label><input type="radio" name="answers.q5" value="influencer"> I influence decisions but need executive approval</label>
+                            <label><input type="radio" name="answers.q5" value="gathering"> I am gathering information for the decision-makers</label>
+                            <label><input type="radio" name="answers.q5" value="consultant_advisor"> I work with consultants who advise on these decisions</label>
+                        </div>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-secondary" onclick="prevSection(5)">Back</button>
+                        <button type="button" class="btn btn-primary" onclick="nextSection(7)">Continue</button>
+                    </div>
+                </fieldset>
+
+                <!-- Section 7: Q6 - Data Infrastructure -->
+                <fieldset class="form-section" data-section="7" style="display: none;">
+                    <legend>Data Infrastructure Readiness</legend>
+                    <p class="section-intro">This assesses a key technical prerequisite for AI success.</p>
+
+                    <div class="form-group">
+                        <label>
+                            Q6. How would you describe your data infrastructure?
+                        </label>
+                        <div class="rating-scale">
+                            <label><input type="radio" name="answers.q6" value="scattered" required> We have no centralized data - it's scattered across systems</label>
+                            <label><input type="radio" name="answers.q6" value="warehouse_unorganized"> We have a data warehouse/lake but it's not well-organized</label>
+                            <label><input type="radio" name="answers.q6" value="clean_accessible"> We have clean, accessible data for key business areas</label>
+                            <label><input type="radio" name="answers.q6" value="modern_governed"> We have a modern data stack with governance and quality controls</label>
+                        </div>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-secondary" onclick="prevSection(6)">Back</button>
+                        <button type="button" class="btn btn-primary" onclick="nextSection(8)">Continue</button>
+                    </div>
+                </fieldset>
+
+                <!-- Section 8: Q7 - Team Capability -->
+                <fieldset class="form-section" data-section="8" style="display: none;">
+                    <legend>Team Capability for AI Delivery</legend>
+                    <p class="section-intro">This identifies internal capability gaps we need to fill.</p>
+
+                    <div class="form-group">
+                        <label>
+                            Q7. What is your team's capability for AI delivery?
+                        </label>
+                        <div class="rating-scale">
+                            <label><input type="radio" name="answers.q7" value="no_talent" required> No dedicated AI/ML talent on staff</label>
+                            <label><input type="radio" name="answers.q7" value="1_2_people"> We have 1-2 data scientists / ML engineers</label>
+                            <label><input type="radio" name="answers.q7" value="3_5_people"> We have a dedicated AI/ML team (3-5 people)</label>
+                            <label><input type="radio" name="answers.q7" value="mature_org"> We have a mature data/AI organization with clear processes</label>
+                        </div>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-secondary" onclick="prevSection(7)">Back</button>
+                        <button type="button" class="btn btn-primary" onclick="nextSection(9)">Continue</button>
+                    </div>
+                </fieldset>
+
+                <!-- Section 9: Q8 - Risk Tolerance -->
+                <fieldset class="form-section" data-section="9" style="display: none;">
+                    <legend>Risk Tolerance for AI Initiatives</legend>
+                    <p class="section-intro">This identifies your appetite for experimentation vs. proven approaches.</p>
+
+                    <div class="form-group">
+                        <label>
+                            Q8. What is your risk tolerance for AI initiatives?
+                        </label>
+                        <div class="rating-scale">
+                            <label><input type="radio" name="answers.q8" value="proven_only" required> We prefer proven, vendor-supported solutions with case studies</label>
+                            <label><input type="radio" name="answers.q8" value="balanced"> We're comfortable with some experimentation if there's clear ROI</label>
+                            <label><input type="radio" name="answers.q8" value="calculated_risk"> We're willing to take calculated risks on emerging approaches</label>
+                            <label><input type="radio" name="answers.q8" value="guaranteed_outcomes"> We need guaranteed outcomes before committing</label>
+                        </div>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-secondary" onclick="prevSection(8)">Back</button>
+                        <button type="submit" class="btn btn-primary btn-lg">Get my scored results</button>
+                    </div>
+                </fieldset>
+            </form>
+
+            <div id="submissionStatus" class="submission-status" style="display: none;">
+                <div class="status-icon">⏳</div>
+                <p>Scoring your answers...</p>
+            </div>
+
+            <div id="submissionError" class="submission-error" style="display: none;">
+                <div class="error-icon">⚠️</div>
+                <p id="errorMessage"></p>
+                <button class="btn btn-primary" onclick="window.location.reload()">Try Again</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo"><span class="logo-icon">🧠</span> Neural Studio Lab</a>
+                    <p>AI implementation for owner-led mid-market firms.</p>
+                    <p class="footer-honesty">A new practice. No case studies, no client logo — our method and reference designs are published on the Resources page.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Neural Studio Lab is a registered entity. No public contact address is published; use the assessment form for enquiries.</p>
+                <p>&copy; 2024 Neural Studio Lab. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Load scoring engine first -->
+    <script src="assets/js/scoring-engine.js"></script>
+    <!-- Then load assessment logic -->
+    <script src="assets/js/assessment.js"></script>
+</body>
+</html>

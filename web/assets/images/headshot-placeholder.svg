@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Professional headshot placeholder">
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    <clipPath id="circle-clip">
+      <circle cx="200" cy="200" r="180"/>
+    </clipPath>
+  </defs>
+
+  <!-- Background -->
+  <rect width="400" height="400" fill="url(#bg-gradient)"/>
+
+  <!-- Circular frame -->
+  <circle cx="200" cy="200" r="180" fill="#f8f9fa" opacity="0.95"/>
+
+  <!-- Professional silhouette -->
+  <g clip-path="url(#circle-clip)">
+    <!-- Head -->
+    <circle cx="200" cy="160" r="55" fill="#4a5568"/>
+
+    <!-- Shoulders/torso - professional attire suggestion -->
+    <ellipse cx="200" cy="320" rx="110" ry="90" fill="#4a5568"/>
+
+    <!-- Collar detail -->
+    <path d="M 160 260 Q 200 270 240 260 L 240 280 Q 200 285 160 280 Z" fill="#2d3748"/>
+  </g>
+
+  <!-- Border ring -->
+  <circle cx="200" cy="200" r="185" fill="none" stroke="#667eea" stroke-width="3" opacity="0.6"/>
+
+  <!-- Accessibility -->
+  <title>Professional headshot - awaiting photograph</title>
+  <desc>Placeholder for professional headshot. Replace with optimized photograph (400x400px minimum, clean background, professional attire).</desc>
+</svg>

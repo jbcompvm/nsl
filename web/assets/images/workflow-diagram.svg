@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" fill="none">
+  <!-- 3-Step Workflow Process Diagram: Diagnose → Rank → Build -->
+  <!-- Designed for scalability and professional clarity -->
+
+  <!-- Gradients -->
+  <defs>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#14b8a6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#14b8a6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0891b2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0891b2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+    </linearGradient>
+    <!-- Arrow gradient for connectors -->
+    <linearGradient id="arrowGrad" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#14b8a6;stop-opacity:0.6" />
+    </linearGradient>
+  </defs>
+
+  <!-- Step 1: Diagnose -->
+  <g id="step1">
+    <!-- Container box -->
+    <rect x="40" y="80" width="300" height="240" rx="12"
+          stroke="url(#blueGrad)" stroke-width="3" fill="none"/>
+
+    <!-- Step number badge -->
+    <circle cx="80" cy="120" r="24" fill="url(#blueGrad)"/>
+    <text x="80" y="128" font-family="Inter, sans-serif" font-size="20" font-weight="700"
+          fill="white" text-anchor="middle">1</text>
+
+    <!-- Icon: Magnifying glass with checkmark (diagnostic) -->
+    <g transform="translate(170, 110)">
+      <circle cx="0" cy="0" r="18" stroke="url(#blueGrad)" stroke-width="2.5" fill="none"/>
+      <path d="M12 12l10 10" stroke="url(#blueGrad)" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M-6 -2l4 6l8 -10" stroke="#14b8a6" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" fill="none"/>
+    </g>
+
+    <!-- Step title -->
+    <text x="190" y="160" font-family="Inter, sans-serif" font-size="28" font-weight="700"
+          fill="#1f2937" text-anchor="middle">Diagnose</text>
+
+    <!-- Pricing -->
+    <text x="190" y="195" font-family="Inter, sans-serif" font-size="22" font-weight="600"
+          fill="#059669" text-anchor="middle">Free</text>
+
+    <!-- Timing -->
+    <text x="190" y="225" font-family="Inter, sans-serif" font-size="16" font-weight="500"
+          fill="#6b7280" text-anchor="middle">10 minutes</text>
+
+    <!-- Description -->
+    <text x="190" y="255" font-family="Inter, sans-serif" font-size="14" font-weight="400"
+          fill="#4b5563" text-anchor="middle">Online assessment</text>
+    <text x="190" y="275" font-family="Inter, sans-serif" font-size="14" font-weight="400"
+          fill="#4b5563" text-anchor="middle">Instant diagnosis</text>
+  </g>
+
+  <!-- Arrow 1 to 2 -->
+  <g id="arrow1">
+    <path d="M350 200h90" stroke="url(#arrowGrad)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M430 200l10 -8M430 200l10 8" stroke="url(#arrowGrad)" stroke-width="3"
+          stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Step 2: Rank -->
+  <g id="step2">
+    <!-- Container box -->
+    <rect x="450" y="80" width="300" height="240" rx="12"
+          stroke="url(#tealGrad)" stroke-width="3" fill="none"/>
+
+    <!-- Step number badge -->
+    <circle cx="490" cy="120" r="24" fill="url(#tealGrad)"/>
+    <text x="490" y="128" font-family="Inter, sans-serif" font-size="20" font-weight="700"
+          fill="white" text-anchor="middle">2</text>
+
+    <!-- Icon: Ranked list with podium positions -->
+    <g transform="translate(580, 115)">
+      <!-- Podium bars -->
+      <rect x="-8" y="10" width="6" height="15" fill="#14b8a6" rx="1"/>
+      <rect x="-2" y="4" width="6" height="21" fill="url(#tealGrad)" rx="1"/>
+      <rect x="4" y="16" width="6" height="9" fill="#0891b2" rx="1"/>
+      <!-- Numbers -->
+      <text x="-5" y="8" font-family="Inter, sans-serif" font-size="10" font-weight="700"
+            fill="#0891b2" text-anchor="middle">1</text>
+      <text x="1" y="2" font-family="Inter, sans-serif" font-size="10" font-weight="700"
+            fill="#0891b2" text-anchor="middle">2</text>
+      <text x="7" y="14" font-family="Inter, sans-serif" font-size="10" font-weight="700"
+            fill="#0891b2" text-anchor="middle">3</text>
+    </g>
+
+    <!-- Step title -->
+    <text x="600" y="160" font-family="Inter, sans-serif" font-size="28" font-weight="700"
+          fill="#1f2937" text-anchor="middle">Rank</text>
+
+    <!-- Pricing -->
+    <text x="600" y="195" font-family="Inter, sans-serif" font-size="22" font-weight="600"
+          fill="#0891b2" text-anchor="middle">$950</text>
+
+    <!-- Timing -->
+    <text x="600" y="225" font-family="Inter, sans-serif" font-size="16" font-weight="500"
+          fill="#6b7280" text-anchor="middle">1 week</text>
+
+    <!-- Description -->
+    <text x="600" y="255" font-family="Inter, sans-serif" font-size="14" font-weight="400"
+          fill="#4b5563" text-anchor="middle">Ranked shortlist</text>
+    <text x="600" y="275" font-family="Inter, sans-serif" font-size="14" font-weight="400"
+          fill="#4b5563" text-anchor="middle">Build spec for #1</text>
+  </g>
+
+  <!-- Arrow 2 to 3 -->
+  <g id="arrow2">
+    <path d="M760 200h90" stroke="url(#arrowGrad)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M840 200l10 -8M840 200l10 8" stroke="url(#arrowGrad)" stroke-width="3"
+          stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Step 3: Build -->
+  <g id="step3">
+    <!-- Container box -->
+    <rect x="860" y="80" width="300" height="240" rx="12"
+          stroke="url(#greenGrad)" stroke-width="3" fill="none"/>
+
+    <!-- Step number badge -->
+    <circle cx="900" cy="120" r="24" fill="url(#greenGrad)"/>
+    <text x="900" y="128" font-family="Inter, sans-serif" font-size="20" font-weight="700"
+          fill="white" text-anchor="middle">3</text>
+
+    <!-- Icon: Gears/Cog (production system) -->
+    <g transform="translate(990, 115)">
+      <circle cx="0" cy="0" r="16" stroke="url(#greenGrad)" stroke-width="2.5" fill="none"/>
+      <path d="M0 -16v6M0 10v6M-16 0h6M10 0h6" stroke="url(#greenGrad)" stroke-width="2"
+            stroke-linecap="round"/>
+      <circle cx="0" cy="0" r="5" fill="#059669"/>
+    </g>
+
+    <!-- Step title -->
+    <text x="1010" y="160" font-family="Inter, sans-serif" font-size="28" font-weight="700"
+          fill="#1f2937" text-anchor="middle">Build</text>
+
+    <!-- Pricing -->
+    <text x="1010" y="195" font-family="Inter, sans-serif" font-size="22" font-weight="600"
+          fill="#059669" text-anchor="middle">$4,500</text>
+
+    <!-- Timing -->
+    <text x="1010" y="225" font-family="Inter, sans-serif" font-size="16" font-weight="500"
+          fill="#6b7280" text-anchor="middle">5 weeks</text>
+
+    <!-- Description -->
+    <text x="1010" y="255" font-family="Inter, sans-serif" font-size="14" font-weight="400"
+          fill="#4b5563" text-anchor="middle">Running workflow</text>
+    <text x="1010" y="275" font-family="Inter, sans-serif" font-size="14" font-weight="400"
+          fill="#4b5563" text-anchor="middle">Runbook + handover</text>
+  </g>
+
+  <!-- Bottom note -->
+  <text x="600" y="355" font-family="Inter, sans-serif" font-size="16" font-weight="500"
+        fill="#6b7280" text-anchor="middle" font-style="italic">One workflow at a time, in a fixed order</text>
+</svg>

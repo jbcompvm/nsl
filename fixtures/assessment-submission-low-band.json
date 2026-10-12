@@ -1,0 +1,22 @@
+{
+  "submissionId": "550e8400-e29b-41d4-a716-446655440002",
+  "timestamp": "2026-09-27T15:05:00Z",
+  "contact": {
+    "name": "Michael Chen",
+    "email": "m.chen@startupxyz.io",
+    "company": "StartupXYZ",
+    "phone": "+1-555-234-5678"
+  },
+  "answers": {
+    "q1": "explorer",
+    "q2": "Just starting to explore AI possibilities",
+    "q3": 3,
+    "q4": "6+ months",
+    "q5": "researcher"
+  },
+  "metadata": {
+    "source": "google organic",
+    "ipAddress": "192.168.1.102",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
+  }
+}

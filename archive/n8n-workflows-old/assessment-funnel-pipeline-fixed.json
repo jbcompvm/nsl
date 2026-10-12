@@ -1,0 +1,92 @@
+{
+  "name": "Assessment Funnel Pipeline",
+  "nodes": [
+    {
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "assessment-submission",
+        "responseMode": "responseNode"
+      }
+    },
+    {
+      "name": "Validate Payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [450, 300],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Validate required fields\nconst requiredFields = ['submissionId', 'timestamp', 'contact', 'answers'];\nconst missingFields = [];\n\nrequiredFields.forEach(field => {\n  if (!item.json[field]) {\n    missingFields.push(field);\n  }\n});\n\nif (missingFields.length > 0) {\n  return {\n    json: {\n      ...item.json,\n      error: true,\n      message: 'Missing required fields',\n      missingFields\n    }\n  };\n}\n\n// Validate contact.email format\nconst emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;\nif (!emailRegex.test(item.json.contact.email)) {\n  return {\n    json: {\n      ...item.json,\n      error: true,\n      message: 'Invalid email format'\n    }\n  };\n}\n\n// Validate answers.q3 is number 1-10\nif (typeof item.json.answers.q3 !== 'number' || item.json.answers.q3 < 1 || item.json.answers.q3 > 10) {\n  return {\n    json: {\n      ...item.json,\n      error: true,\n      message: 'Budget readiness (q3) must be a number between 1 and 10'\n    }\n  };\n}\n\nreturn {\n  json: {\n    ...item.json,\n    error: false\n  }\n};"
+      }
+    },
+    {
+      "name": "Check for Errors",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [650, 300],
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.error }}",
+              "value2": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Error Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [850, 100],
+      "parameters": {
+        "httpCode": "400",
+        "responseBody": "={ \"status\": \"error\", \"message\": \"{{ $json.message }}\", \"errors\": {{ $json.missingFields || [] }} }"
+      }
+    },
+    {
+      "name": "Score Assessment (STUB - Replace with NEU-5 Model)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [850, 400],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// STUB SCORING MODEL - Replace with NEU-5 implementation\nconst answers = item.json.answers;\n\n// Fixture scoring logic (for testing until NEU-5 is ready)\nlet score = 0;\n\n// Q1: AI maturity (explorer=10, experimenting=30, scaling=60, optimized=80)\nconst q1Scores = { explorer: 10, experimenting: 30, scaling: 60, optimized: 80 };\nscore += q1Scores[answers.q1] || 0;\n\n// Q3: Budget readiness (1-10 scale, multiply by 5)\nscore += (answers.q3 || 0) * 5;\n\n// Q4: Timeline (immediate=20, 1-3 months=15, 3-6 months=10, 6+ months=5)\nconst q4Scores = { immediate: 20, '1-3 months': 15, '3-6 months': 10, '6+ months': 5 };\nscore += q4Scores[answers.q4] || 0;\n\n// Q5: Decision authority (decision_maker=15, influencer=10, researcher=5)\nconst q5Scores = { decision_maker: 15, influencer: 10, researcher: 5 };\nscore += q5Scores[answers.q5] || 0;\n\n// Cap score at 100\nscore = Math.min(score, 100);\n\n// Determine band\nlet band;\nif (score >= 70) {\n  band = 'HIGH';\n} else if (score >= 40) {\n  band = 'MEDIUM';\n} else {\n  band = 'LOW';\n}\n\nreturn {\n  json: {\n    ...item.json,\n    score,\n    band,\n    scoringNotes: 'STUB: Replace with NEU-5 model'\n  }\n};"
+      }
+    },
+    {
+      "name": "Success Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1050, 400],
+      "parameters": {
+        "httpCode": "200",
+        "responseBody": "={ \"status\": \"success\", \"message\": \"Assessment scored\", \"submissionId\": \"{{ $json.submissionId }}\", \"band\": \"{{ $json.band }}\", \"score\": {{ $json.score }} }"
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{"node": "Validate Payload", "type": "main", "index": 0}]]
+    },
+    "Validate Payload": {
+      "main": [[{"node": "Check for Errors", "type": "main", "index": 0}]]
+    },
+    "Check for Errors": {
+      "main": [
+        [{"node": "Error Response", "type": "main", "index": 0}],
+        [{"node": "Score Assessment (STUB - Replace with NEU-5 Model)", "type": "main", "index": 0}]
+      ]
+    },
+    "Score Assessment (STUB - Replace with NEU-5 Model)": {
+      "main": [[{"node": "Success Response", "type": "main", "index": 0}]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

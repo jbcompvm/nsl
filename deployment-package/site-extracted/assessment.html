@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Strategy Assessment — 12 Questions, Scored Instantly | Neural Studio Lab</title>
+    <meta name="description" content="Free AI readiness assessment for mid-market manufacturers and healthcare providers. 12 strategic questions, scored instantly with personalized recommendations.">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <span class="logo-icon">🧠</span>
+                    Neural Studio Lab
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="consulting.html">Services</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+                <a href="assessment.html" class="btn btn-primary">Take the assessment</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="assessment-header">
+            <div class="container">
+                <h1>Find out whether your organization is actually ready to make AI stick</h1>
+                <p class="hero-tagline">
+                    12 strategic questions, about ten minutes. You get a scored result and written diagnosis regardless of whether we ever speak.
+                </p>
+                <p class="assessment-honesty">
+                    <strong>Fair warning: this assessment is designed to tell you "not ready" if that's the truth.</strong> Roughly six in ten organizations score below the threshold for paid engagement. We'd rather tell you that in ten minutes than three weeks into a failed build.
+                </p>
+                <div class="assessment-meta">
+                    <span>⏱️ ~10 minutes</span>
+                    <span>📊 12 strategic questions</span>
+                    <span>📥 Scored instantly</span>
+                    <span>🎯 Personalized recommendations</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+                </div>
+                <div class="progress-steps">
+                    <span id="questionCounter">0 / 12</span>
+                    <span id="progressPercent">0% Complete</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <form id="assessmentForm" class="assessment-form">
+                <!-- Section 1: Contact Information -->
+                <fieldset class="form-section" data-section="1">
+                    <legend>Let's start with some basics</legend>
+                    
+                    <div class="form-group">
+                        <label for="name">Your name *</label>
+                        <input type="text" id="name" name="contact.name" required placeholder="Your full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Work email *</label>
+                        <input type="email" id="email" name="contact.email" required placeholder="john@company.com">
+                        <span class="question-hint">Where your scored diagnosis goes.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company">Firm name *</label>
+                        <input type="text" id="company" name="contact.company" required placeholder="Your organization">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="companySize">How many people work there? *</label>
+                        <select id="companySize" name="contact.company_size" required>
+                            <option value="">Select size</option>
+                            <option value="1-10">1-10 employees</option>
+                            <option value="11-50">11-50 employees</option>
+                            <option value="51-200">51-200 employees</option>
+                            <option value="201-500">201-500 employees</option>
+                            <option value="500+">500+ employees</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="industry">What kind of work does the firm do? *</label>
+                        <input type="text" id="industry" name="contact.industry" required placeholder="e.g., manufacturing, healthcare, consulting">
+                        <span class="question-hint">We specialize in mid-market manufacturing and healthcare. Other industries may not be a fit.</span>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-primary" onclick="nextSection(2)">Continue</button>
+                    </div>
+                </fieldset>
+
+                <!-- Section 2: Organizational Context (Q1-Q3) -->
+                <fieldset class="form-section" data-section="2" style="display: none;">
+                    <legend>Organizational context</legend>
+                    <p class="section-intro">Understanding your organization type and your role in decision-making.</p>
+
+                    <div class="form-group">
+                        <label>
+                            Q1. What best describes your organization?
+                        </label>
+                        <div class="rating-scale">
+                            <label><input type="radio" name="answers.q1" value="manufacturing_50_500" required> Manufacturing company (50-500 employees)</label>
+                            <label><input type="radio" name="answers.q1" value="healthcare_100_1000"> Healthcare system (100-1000 staff)</label>
+                            <label><input type="radio" name="answers.q1" value="technology"> Technology company</label>
+                            <label><input type="radio" name="answers.q1" value="professional_services"> Professional services / consulting</label>
+                            <label><input type="radio" name="answers.q1" value="other"> Other / Not sure</label>
+                        </div>
+                        <span class="question-hint">We specialize in mid-market manufacturing and healthcare. Other segments may not be a fit.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Q2. What is your primary role?
+                        </label>
+                        <div class="rating-scale">
+                            <label><input type="radio" name="answers.q2" value="c_level" required> C-level executive (CEO, COO, CTO, CIO)</label>
+                            <label><input type="radio" name="answers.q2" value="vp_director"> VP / Director of Operations</label>
+                            <label><input type="radio" name="answers.q2" value="it_manager"> IT / Technology Manager</label>
+                            <label><input type="radio" name="answers.q2" value="business_unit_manager"> Business Unit Manager</label>
+                            <label><input type="radio" name="answers.q2" value="consultant"> Consultant / Advisor</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Q3. What is your annual revenue / budget scale?
+                        </label>
+                        <div class="rating-scale">
+                            <label><input type="radio" name="answers.q3" value="under_10m" required> Under $10M</label>
+                            <label><input type="radio" name="answers.q3" value="_10m_50m">$10M - $50M</label>
+                            <label><input type="radio" name="answers.q3" value="_50m_200m">$50M - $200M</label>
+                            <label><input type="radio" name="answers.q3" value="over_200m"> Over $200M</label>
+                            <label><input type="radio" name="answers.q3" value="prefer_not_say"> Prefer not to say</label>
+                        </div>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-secondary" onclick="prevSection(1)">Back</button>
+                        <button type="button" class="btn btn-primary" onclick="nextSection(3)">Continue</button>
+                    </div>
+                </fieldset>
+
+                <!-- Section 3: Problem Clarity (Q4-Q6) -->
+                <fieldset class="form-section" data-section="3" style="display: none;">
+                    <legend>Problem clarity and data readiness</legend>
+                    <p class="section-intro">This section assesses whether you have a clear problem and the data infrastructure to solve it.</p>
+
+                    <div class="form-group">
+                        <label>
+                            Q4. What specific operational challenge are you hoping AI could solve?
+                        </label>
+                        <div class="rating-scale">
+                            <label><input type="radio" name="answers.q4" value="clear_quantified" required> Clear, quantified problem (e.g., "reduce quality defects by 30%" or "cut supply chain costs $2M/year")</label>
+                            <label><input type="radio" name="answers.q4" value="broad_problem"> Broad problem area (e.g., "improve operational efficiency" or "reduce costs")</label>
+                            <label><input type="radio" name="answers.q4" value="vague_interest"> Vague interest ("AI seems important, we should explore")</label>
+                            <label><input type="radio" name="answers.q4" value="multiple_no_priority"> Multiple problems, no prioritization</label>
+                            <label><input type="radio" name="answers.q4" value="no_problem"> No specific problem yet</label>
+                        </div>
+                        <span class="question-hint">A clear, quantified problem is the strongest predictor of successful engagement.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Q5. How would you describe your current data infrastructure?
+                        </label>
+                        <div class="rating-scale">
+                            <label><input type="radio" name="answers.q5" value="mature" required> Mature: Clean, integrated data with analytics capabilities</label>
+                            <label><input type="radio" name="answers.q5" value="moderate"> Moderate: Data exists but requires integration/cleaning</label>
+                            <label><input type="radio" name="answers.q5" value="early_stage"> Early stage: Disparate systems, limited analytics</label>
+                            <label><input type="radio" name="answers.q5" value="minimal"> Minimal: Paper-based or very basic digital systems</label>
+                            <label><input type="radio" name="answers.q5" value="not_sure"> Not sure</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Q6. Have you attempted AI/ML projects before?
+                        </label>
+                        <div class="rating-scale">
+                            <label><input type="radio" name="answers.q6" value="successful_production" required> Successful production deployments</label>
+                            <label><input type="radio" name="answers.q6" value="failed_projects"> Failed or abandoned projects</label>
+                            <label><input type="radio" name="answers.q6" value="pilot_never_production"> Pilot projects that never went to production</label>
+                            <label><input type="radio" name="answers.q6" value="no_prior_attempts"> No prior attempts</label>
+                            <label><input type="radio" name="answers.q6" value="actively_running"> We're actively running projects now</label>
+                        </div>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-secondary" onclick="prevSection(2)">Back</button>
+                        <button type="button" class="btn btn-primary" onclick="nextSection(4)">Continue</button>
+                    </div>
+                </fieldset>
+
+                <!-- Section 4: Readiness & Commitment (Q7-Q9) -->
+                <fieldset class="form-section" data-section="4" style="display: none;">
+                    <legend>Readiness and commitment</legend>
+                    <p class="section-intro">Understanding your timeline, budget, and decision-making process.</p>
+
+                    <div class="form-group">
+                        <label>
+                            Q7. What is your timeline for implementing an AI solution?
+                        </label>
+                        <div class="rating-scale">
+                            <label><input type="radio" name="answers.q7" value="already_urgent" required> Already urgent (active pain, losing money/opportunities now)</label>
+                            <label><input type="radio" name="answers.q7" value="_3_6_months"> 3-6 months</label>
+                            <label><input type="radio" name="answers.q7" value="_6_12_months"> 6-12 months</label>
+                            <label><input type="radio" name="answers.q7" value="_12_plus"> 12+ months / Just exploring</label>
+                            <label><input type="radio" name="answers.q7" value="no_timeline"> No timeline</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Q8. What budget range have you allocated for this initiative?
+                        </label>
+                        <div class="rating-scale">
+                            <label><input type="radio" name="answers.q8" value="_50k_plus" required> $50k+</label>
+                            <label><input type="radio" name="answers.q8" value="_25k_50k">$25k - $50k</label>
+                            <label><input type="radio" name="answers.q8" value="_10k_25k">$10k - $25k</label>
+                            <label><input type="radio" name="answers.q8" value="under_10k"> Under $10k</label>
+                            <label><input type="radio" name="answers.q8" value="no_budget"> No budget allocated yet</label>
+                        </div>
+                        <span class="question-hint">Our entry-tier engagement starts at $7,500. Budgets under $10k may not be viable for our engagement model.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Q9. Who else is involved in the decision-making process?
+                        </label>
+                        <div class="rating-scale">
+                            <label><input type="radio" name="answers.q9" value="sole_decision_maker" required> I have full authority / sole decision-maker</label>
+                            <label><input type="radio" name="answers.q9" value="small_exec_team"> Small executive team (2-3 people)</label>
+                            <label><input type="radio" name="answers.q9" value="larger_committee"> Larger committee (4+ people)</label>
+                            <label><input type="radio" name="answers.q9" value="need_to_convince"> I need to convince others</label>
+                            <label><input type="radio" name="answers.q9" value="not_sure"> Not sure / Haven't discussed</label>
+                        </div>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-secondary" onclick="prevSection(3)">Back</button>
+                        <button type="button" class="btn btn-primary" onclick="nextSection(5)">Continue</button>
+                    </div>
+                </fieldset>
+
+                <!-- Section 5: Strategic Alignment (Q10-Q12) -->
+                <fieldset class="form-section" data-section="5" style="display: none;">
+                    <legend>Strategic alignment</legend>
+                    <p class="section-intro">Understanding your organization's culture and concerns.</p>
+
+                    <div class="form-group">
+                        <label>
+                            Q10. How would you describe your organization's culture toward innovation?
+                        </label>
+                        <div class="rating-scale">
+                            <label><input type="radio" name="answers.q10" value="highly_innovative" required> Highly innovative, early adopter</label>
+                            <label><input type="radio" name="answers.q10" value="pragmatic_evidence"> Pragmatic, evidence-based</label>
+                            <label><input type="radio" name="answers.q10" value="cautious_risk_averse"> Cautious, risk-averse</label>
+                            <label><input type="radio" name="answers.q10" value="skeptical"> Skeptical of new technology</label>
+                            <label><input type="radio" name="answers.q10" value="no_clear_culture"> No clear culture</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Q11. What has been your experience with consulting engagements?
+                        </label>
+                        <div class="rating-scale">
+                            <label><input type="radio" name="answers.q11" value="very_positive" required> Very positive, delivered measurable results</label>
+                            <label><input type="radio" name="answers.q11" value="mixed_results"> Mixed results, some value but not transformative</label>
+                            <label><input type="radio" name="answers.q11" value="poor_experience"> Poor experience, felt like waste of money</label>
+                            <label><input type="radio" name="answers.q11" value="never_used"> Never used consultants before</label>
+                            <label><input type="radio" name="answers.q11" value="negative_wont_use"> Negative experience, won't use again</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Q12. What is your primary concern about moving forward with AI?
+                        </label>
+                        <div class="rating-scale">
+                            <label><input type="radio" name="answers.q12" value="cost_roi" required> Cost / ROI uncertainty</label>
+                            <label><input type="radio" name="answers.q12" value="technical_complexity"> Technical complexity / lack of internal expertise</label>
+                            <label><input type="radio" name="answers.q12" value="implementation_risk"> Implementation risk / project failure</label>
+                            <label><input type="radio" name="answers.q12" value="data_privacy"> Data privacy / security concerns</label>
+                            <label><input type="radio" name="answers.q12" value="not_sure_concerns"> Not sure what I'm concerned about</label>
+                            <label><input type="radio" name="answers.q12" value="nothing_ready"> Nothing, ready to move forward</label>
+                        </div>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-secondary" onclick="prevSection(4)">Back</button>
+                        <button type="submit" class="btn btn-primary btn-lg">Get my scored results</button>
+                    </div>
+                </fieldset>
+            </form>
+
+            <div id="submissionStatus" class="submission-status" style="display: none;">
+                <div class="status-icon">⏳</div>
+                <p>Scoring your answers...</p>
+            </div>
+
+            <div id="submissionError" class="submission-error" style="display: none;">
+                <div class="error-icon">⚠️</div>
+                <p id="errorMessage"></p>
+                <button class="btn btn-primary" onclick="window.location.reload()">Try Again</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo"><span class="logo-icon">🧠</span> Neural Studio Lab</a>
+                    <p>AI implementation for owner-led mid-market firms.</p>
+                    <p class="footer-honesty">A new practice. No case studies, no client logos — our method and reference designs are published on the Resources page.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Neural Studio Lab is a registered entity. No public contact address is published; use the assessment form for enquiries.</p>
+                <p>&copy; 2024 Neural Studio Lab. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Load scoring engine first -->
+    <script src="assets/js/scoring-engine.js"></script>
+    <!-- Then load assessment logic -->
+    <script src="assets/js/assessment.js"></script>
+</body>
+</html>

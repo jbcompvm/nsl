@@ -1,0 +1,22 @@
+{
+  "submissionId": "550e8400-e29b-41d4-a716-446655440001",
+  "timestamp": "2026-09-27T15:00:00Z",
+  "contact": {
+    "name": "Sarah Johnson",
+    "email": "sarah.johnson@techcorp.com",
+    "company": "TechCorp Industries",
+    "phone": "+1-555-987-6543"
+  },
+  "answers": {
+    "q1": "scaling",
+    "q2": "Looking to optimize our AI investments and identify new use cases",
+    "q3": 9,
+    "q4": "immediate",
+    "q5": "decision_maker"
+  },
+  "metadata": {
+    "source": "linkedin organic",
+    "ipAddress": "192.168.1.101",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+  }
+}

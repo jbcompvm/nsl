@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Decision Paralysis Icon -->
+  <!-- Represents: multiple paths/options leading to indecision -->
+
+  <!-- Central decision point -->
+  <circle cx="32" cy="32" r="5"
+          fill="url(#grad4)"/>
+
+  <!-- Multiple diverging arrows (showing too many choices) -->
+  <!-- Top path -->
+  <path d="M32 27 L32 14 M28 18 L32 14 L36 18"
+        stroke="#8b5cf6"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+  <!-- Top-right path -->
+  <path d="M36 29 L47 18 M44 22 L47 18 L43 15"
+        stroke="#3b82f6"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+  <!-- Bottom-right path -->
+  <path d="M36 35 L47 46 M43 42 L47 46 L44 49"
+        stroke="#14b8a6"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+  <!-- Bottom path -->
+  <path d="M32 37 L32 50 M28 46 L32 50 L36 46"
+        stroke="#f59e0b"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+  <!-- Bottom-left path -->
+  <path d="M28 35 L17 46 M20 42 L17 46 L21 49"
+        stroke="#ef4444"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+  <!-- Top-left path -->
+  <path d="M28 29 L17 18 M21 15 L17 18 L20 22"
+        stroke="#8b5cf6"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        opacity="0.7"/>
+
+  <!-- Question mark overlay indicating uncertainty -->
+  <text x="32" y="36"
+        font-family="Inter, sans-serif"
+        font-size="12"
+        font-weight="700"
+        fill="#e8e8f0"
+        text-anchor="middle">?</text>
+
+  <defs>
+    <linearGradient id="grad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>

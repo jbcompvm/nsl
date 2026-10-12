@@ -1,0 +1,28 @@
+# Credentials and secrets
+*credentials*.md
+*.env
+*.key
+*.pem
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv
+
+# Deployment packages
+*.tar.gz
+*.zip
+
+# Temporary files
+*.tmp
+*.log
+.DS_Store
+
+# IDE
+.vscode/
+.idea/

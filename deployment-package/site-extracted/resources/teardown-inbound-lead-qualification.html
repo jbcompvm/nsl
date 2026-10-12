@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inbound Lead Qualification — Workflow teardown | Neural Studio Lab</title>
+    <meta name="description" content="Reference design for inbound lead qualification: trigger, steps, failure modes, build cost ($3,000-$6,500), and ongoing cost (~$1,100/month by hand). Labelled as reference design, not client work.">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+    <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">
+                    <span class="logo-icon">🧠</span>
+                    Neural Studio Lab
+                </a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../consulting.html">Services</a></li>
+                    <li><a href="../resources.html" class="active">Resources</a></li>
+                    <li><a href="../about.html">About</a></li>
+                </ul>
+                <a href="../assessment.html" class="btn btn-primary">Take the assessment</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="teardown-header">
+            <div class="container">
+                <p class="teardown-label">Reference design — not client work</p>
+                <h1>Inbound Lead Qualification</h1>
+                <p class="hero-tagline">How to capture, score, route, and follow up on every lead — with the failure modes, build cost, and what it costs to keep doing by hand.</p>
+            </div>
+        </section>
+
+        <!-- The Workflow -->
+        <section class="container">
+            <div class="teardown-meta">
+                <strong>The workflow:</strong> Inbound Lead Qualification<br>
+                <strong>What it does:</strong> Captures leads from web forms, scores them based on fit, routes them to the right person, and ensures timely follow-up.
+            </div>
+        </section>
+
+        <!-- The Trigger -->
+        <section class="container">
+            <h2>The trigger</h2>
+            <p>A visitor submits a form on the website (contact form, assessment submission, newsletter signup).</p>
+        </section>
+
+        <!-- The Steps -->
+        <section class="container">
+            <h2>The steps</h2>
+
+            <h3>Step 1: Capture</h3>
+            <ul>
+                <li>Form submission arrives via webhook or API</li>
+                <li>Data includes: name, email, company, firm size, industry, message</li>
+                <li>System creates or updates a contact record in the CRM</li>
+            </ul>
+            <p><strong>Tools:</strong> Web form (custom or Typeform), CRM (HubSpot, Pipedrive, or similar)</p>
+            <p><strong>Failure mode:</strong> Form submission fails silently, or data doesn't reach the CRM<br>
+            <strong>Fix:</strong> Webhook monitoring with alert on failure; daily check of "unprocessed submissions" list</p>
+
+            <h3>Step 2: Score</h3>
+            <ul>
+                <li>System evaluates the lead against qualification criteria</li>
+                <li>Criteria might include: firm size, budget indicator, timeline urgency, fit with services</li>
+                <li>Lead receives a score or tier (e.g., "Hot," "Warm," "Cold" or numeric score)</li>
+            </ul>
+            <p><strong>Tools:</strong> Automation platform (n8n, Make, Zapier), CRM scoring rules</p>
+            <p><strong>Failure mode:</strong> Scoring logic is wrong, or leads are misclassified<br>
+            <strong>Fix:</strong> Regular audit of scored leads vs. actual outcomes; adjust thresholds based on conversion data</p>
+
+            <h3>Step 3: Route</h3>
+            <ul>
+                <li>Based on score and type, lead is assigned to the right person or queue</li>
+                <li>Hot leads → immediate notification to sales owner</li>
+                <li>Warm leads → added to nurture sequence</li>
+                <li>Cold leads → added to long-term nurture or declined</li>
+            </ul>
+            <p><strong>Tools:</strong> CRM assignment rules, email notifications, Slack integrations</p>
+            <p><strong>Failure mode:</strong> Leads sit unassigned, or wrong person gets notified<br>
+            <strong>Fix:</strong> Default owner assignment; daily "unassigned leads" report; escalation after 24 hours</p>
+
+            <h3>Step 4: Follow-up</h3>
+            <ul>
+                <li>Automated or semi-automated response sent within a defined timeframe</li>
+                <li>Hot leads: Personal email within 24 hours</li>
+                <li>Warm leads: Nurture sequence starts immediately</li>
+                <li>Cold leads: Monthly newsletter or no contact</li>
+            </ul>
+            <p><strong>Tools:</strong> Email automation, CRM tasks, calendar integration</p>
+            <p><strong>Failure mode:</strong> Follow-up is delayed or inconsistent<br>
+            <strong>Fix:</strong> SLA tracking (e.g., "all hot leads contacted within 24 hours"); alerts on breaches</p>
+        </section>
+
+        <!-- Failure Modes -->
+        <section class="container">
+            <h2>The failure modes</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Failure</th>
+                        <th>Impact</th>
+                        <th>Detection</th>
+                        <th>Prevention</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Form submission fails</td>
+                        <td>Lost leads</td>
+                        <td>Webhook error logs; daily "missing submissions" check</td>
+                        <td>Redundant submission path; email fallback</td>
+                    </tr>
+                    <tr>
+                        <td>Scoring logic wrong</td>
+                        <td>Misrouted leads</td>
+                        <td>Weekly review of lead outcomes</td>
+                        <td>A/B test scoring rules; adjust based on conversion</td>
+                    </tr>
+                    <tr>
+                        <td>Lead sits unassigned</td>
+                        <td>Delayed follow-up</td>
+                        <td>Daily "unassigned leads" report</td>
+                        <td>Default owner; auto-assign on creation</td>
+                    </tr>
+                    <tr>
+                        <td>Follow-up delayed</td>
+                        <td>Lost opportunity</td>
+                        <td>SLA dashboard; alerts on breach</td>
+                        <td>Automated reminders; escalation after threshold</td>
+                    </tr>
+                    <tr>
+                        <td>Duplicate contacts</td>
+                        <td>Confusion in CRM</td>
+                        <td>Duplicate detection reports</td>
+                        <td>Pre-creation check by email; merge workflow</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Build Cost -->
+        <section class="container">
+            <h2>Rough build cost</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Cost Range</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Form + webhook setup</td>
+                        <td>$500-$1,000</td>
+                        <td>Custom form or Typeform integration</td>
+                    </tr>
+                    <tr>
+                        <td>Scoring logic</td>
+                        <td>$1,000-$2,000</td>
+                        <td>Rules engine or custom scoring algorithm</td>
+                    </tr>
+                    <tr>
+                        <td>Routing + notifications</td>
+                        <td>$500-$1,000</td>
+                        <td>CRM configuration + email/Slack setup</td>
+                    </tr>
+                    <tr>
+                        <td>Follow-up automation</td>
+                        <td>$500-$1,500</td>
+                        <td>Email sequences + task creation</td>
+                    </tr>
+                    <tr>
+                        <td>Testing + handover</td>
+                        <td>$500-$1,000</td>
+                        <td>QA + documentation + training</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td><strong>Total</strong></td>
+                        <td><strong>$3,000-$6,500</strong></td>
+                        <td>Depends on complexity and CRM</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Timeline:</strong> 3-4 weeks from scope sign-off to live system</p>
+        </section>
+
+        <!-- Ongoing Cost -->
+        <section class="container">
+            <h2>Rough ongoing cost (by hand)</h2>
+            <p>If done manually:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Time per Week</th>
+                        <th>Cost at $100/hr</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Review new leads</td>
+                        <td>2 hours</td>
+                        <td>$200</td>
+                    </tr>
+                    <tr>
+                        <td>Score and categorize</td>
+                        <td>3 hours</td>
+                        <td>$300</td>
+                    </tr>
+                    <tr>
+                        <td>Assign and notify</td>
+                        <td>1 hour</td>
+                        <td>$100</td>
+                    </tr>
+                    <tr>
+                        <td>Send follow-ups</td>
+                        <td>5 hours</td>
+                        <td>$500</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td><strong>Total</strong></td>
+                        <td><strong>11 hours/week</strong></td>
+                        <td><strong>~$1,100/month</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Hidden cost:</strong> Inconsistency, delays, lost leads due to human error</p>
+        </section>
+
+        <!-- What This Excludes -->
+        <section class="container">
+            <h2>What this excludes</h2>
+            <ul>
+                <li><strong>Custom form design</strong> — This assumes a basic form exists; redesign is separate</li>
+                <li><strong>Advanced lead scoring</strong> — Machine learning models or complex attribution are out of scope</li>
+                <li><strong>Multi-channel capture</strong> — This covers web forms only; phone, email, and social are separate workflows</li>
+                <li><strong>CRM migration</strong> — If you're switching CRMs, that's a different engagement</li>
+            </ul>
+        </section>
+
+        <!-- Why This Matters -->
+        <section class="container">
+            <h2>Why this matters</h2>
+            <p>Most firms lose 20-40% of inbound leads due to slow or inconsistent follow-up. A systematic approach:</p>
+            <ul>
+                <li>Ensures every lead gets a response</li>
+                <li>Prioritizes the right leads for immediate attention</li>
+                <li>Captures data for later analysis</li>
+                <li>Frees up human time for actual conversations instead of data entry</li>
+            </ul>
+        </section>
+
+        <!-- How We'd Approach -->
+        <section class="container">
+            <h2>How we'd approach building this</h2>
+            <ol>
+                <li><strong>Audit current process</strong> — Where do leads come from? What happens now? Where do they fall through?</li>
+                <li><strong>Define scoring criteria</strong> — What makes a lead "hot" vs. "cold"? This is a business decision, not a technical one.</li>
+                <li><strong>Map the routing rules</strong> — Who gets which leads? What's the escalation path?</li>
+                <li><strong>Build in stages</strong> — Start with capture + routing. Add scoring. Then add follow-up automation.</li>
+                <li><strong>Test with real data</strong> — Run parallel to existing process for 2 weeks; compare outcomes.</li>
+                <li><strong>Handover</strong> — Train the owner; document the failure modes; set up monitoring.</li>
+            </ol>
+        </section>
+
+        <!-- The Runbook -->
+        <section class="container">
+            <h2>The runbook</h2>
+            <p><strong>Owner:</strong> [Named person on client side]</p>
+            
+            <h4>Daily checks:</h4>
+            <ul>
+                <li>Unprocessed submissions list</li>
+                <li>Unassigned leads report</li>
+                <li>SLA breach alerts</li>
+            </ul>
+
+            <h4>Weekly checks:</h4>
+            <ul>
+                <li>Scoring accuracy review</li>
+                <li>Follow-up response rates</li>
+                <li>Lead conversion by source</li>
+            </ul>
+
+            <h4>Monthly checks:</h4>
+            <ul>
+                <li>Overall lead volume trends</li>
+                <li>Score distribution changes</li>
+                <li>Automation error logs</li>
+            </ul>
+
+            <h4>When things break:</h4>
+            <ol>
+                <li>Check webhook logs</li>
+                <li>Verify CRM connection</li>
+                <li>Review recent rule changes</li>
+                <li>Escalate to [support contact]</li>
+            </ol>
+        </section>
+
+        <!-- Questions for Client -->
+        <section class="container">
+            <h2>Questions this raises (for the client)</h2>
+            <ol>
+                <li>What are your actual qualification criteria? (Not what you think they should be — what you use now.)</li>
+                <li>Who owns each lead type? Is that person available when the lead arrives?</li>
+                <li>What's your current follow-up SLA? Is it being met?</li>
+                <li>What happens to leads that don't convert immediately?</li>
+                <li>How do you measure the quality of a lead, not just the quantity?</li>
+            </ol>
+        </section>
+
+        <!-- Related Teardowns -->
+        <section class="container">
+            <h2>Related teardowns</h2>
+            <ul>
+                <li><strong>New Client Intake</strong> — What happens after a lead converts</li>
+                <li><strong>Proposal First Drafts</strong> — How to automate the next step in the sales process</li>
+                <li><strong>Assessment Funnel</strong> — How the free assessment routes to the right engagement</li>
+            </ul>
+        </section>
+
+        <!-- Closing CTA -->
+        <section class="cta-section">
+            <div class="container">
+                <h2>See where you stand</h2>
+                <p>This teardown is one piece of our method. The assessment will tell you whether you're ready to build, or what's missing first.</p>
+                <a href="../assessment.html" class="btn btn-primary btn-lg">Take the free assessment</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="../index.html" class="logo"><span class="logo-icon">🧠</span> Neural Studio Lab</a>
+                    <p>AI implementation for owner-led firms of 5–50 people.</p>
+                    <p class="footer-honesty">A new practice. No case studies, no client logos — our method and our reference designs are published on the Resources page instead.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Neural Studio Lab is a registered entity. No public contact address is published; use the assessment form for enquiries.</p>
+                <p>&copy; 2024 Neural Studio Lab. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

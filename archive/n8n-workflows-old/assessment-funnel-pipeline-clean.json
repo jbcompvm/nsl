@@ -1,0 +1,413 @@
+{
+  "name": "Assessment Funnel Pipeline",
+  "nodes": [
+    {
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "assessment-submission",
+        "responseMode": "responseNode",
+        "responseBody": "{ \"status\": \"success\", \"message\": \"Submission received\", \"submissionId\": \"{{ $json.submissionId }}\" }"
+      }
+    },
+    {
+      "name": "Validate Payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        450,
+        300
+      ],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Validate required fields\nconst requiredFields = ['submissionId', 'timestamp', 'contact', 'answers'];\nconst missingFields = [];\n\nrequiredFields.forEach(field => {\n  if (!item.json[field]) {\n    missingFields.push(field);\n  }\n});\n\nif (missingFields.length > 0) {\n  return {\n    json: {\n      error: true,\n      message: 'Missing required fields',\n      missingFields\n    }\n  };\n}\n\n// Validate contact.email format\nconst emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;\nif (!emailRegex.test(item.json.contact.email)) {\n  return {\n    json: {\n      error: true,\n      message: 'Invalid email format'\n    }\n  };\n}\n\n// Validate answers.q3 is number 1-10\nif (typeof item.json.answers.q3 !== 'number' || item.json.answers.q3 < 1 || item.json.answers.q3 > 10) {\n  return {\n    json: {\n      error: true,\n      message: 'Budget readiness (q3) must be a number between 1 and 10'\n    }\n  };\n}\n\nreturn item;"
+      }
+    },
+    {
+      "name": "Error Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        650,
+        100
+      ],
+      "parameters": {
+        "httpCode": "400",
+        "responseBody": "={ \"status\": \"error\", \"message\": \"{{ $json.message }}\", \"errors\": {{ $json.missingFields || [] }} }"
+      }
+    },
+    {
+      "name": "Score Assessment (STUB - Replace with NEU-5 Model)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        650,
+        300
+      ],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// STUB SCORING MODEL - Replace with NEU-5 implementation\nconst answers = item.json.answers;\n\n// Fixture scoring logic (for testing until NEU-5 is ready)\nlet score = 0;\n\n// Q1: AI maturity (explorer=10, experimenting=30, scaling=60, optimized=80)\nconst q1Scores = { explorer: 10, experimenting: 30, scaling: 60, optimized: 80 };\nscore += q1Scores[answers.q1] || 0;\n\n// Q3: Budget readiness (1-10 scale, multiply by 5)\nscore += (answers.q3 || 0) * 5;\n\n// Q4: Timeline (immediate=20, 1-3 months=15, 3-6 months=10, 6+ months=5)\nconst q4Scores = { immediate: 20, '1-3 months': 15, '3-6 months': 10, '6+ months': 5 };\nscore += q4Scores[answers.q4] || 0;\n\n// Q5: Decision authority (decision_maker=15, influencer=10, researcher=5)\nconst q5Scores = { decision_maker: 15, influencer: 10, researcher: 5 };\nscore += q5Scores[answers.q5] || 0;\n\n// Cap score at 100\nscore = Math.min(score, 100);\n\n// Determine band\nlet band;\nif (score >= 70) {\n  band = 'HIGH';\n} else if (score >= 40) {\n  band = 'MEDIUM';\n} else {\n  band = 'LOW';\n}\n\nreturn {\n  json: {\n    ...item.json,\n    score,\n    band,\n    scoringNotes: 'STUB: Replace with NEU-5 model'\n  }\n};"
+      }
+    },
+    {
+      "name": "Route by Band",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [
+        850,
+        300
+      ],
+      "parameters": {
+        "rule": {
+          "type": "string",
+          "values": {
+            "string": {
+              "value1": "={{ $json.band }}",
+              "operation": "equal",
+              "value2": "HIGH"
+            }
+          }
+        },
+        "options": {
+          "rules": [
+            {
+              "condition": {
+                "type": "string",
+                "values": {
+                  "string": {
+                    "value1": "={{ $json.band }}",
+                    "operation": "equal",
+                    "value2": "HIGH"
+                  }
+                }
+              },
+              "output": 0
+            },
+            {
+              "condition": {
+                "type": "string",
+                "values": {
+                  "string": {
+                    "value1": "={{ $json.band }}",
+                    "operation": "equal",
+                    "value2": "MEDIUM"
+                  }
+                }
+              },
+              "output": 1
+            },
+            {
+              "condition": {
+                "type": "string",
+                "values": {
+                  "string": {
+                    "value1": "={{ $json.band }}",
+                    "operation": "equal",
+                    "value2": "LOW"
+                  }
+                }
+              },
+              "output": 2
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Add Scheduling Link",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        1050,
+        100
+      ],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Add Calendly scheduling link for HIGH and MEDIUM bands\nconst calendlyBaseUrl = 'https://calendly.com/neural-studio-lab/strategy-call';\n\nreturn {\n  json: {\n    ...item.json,\n    schedulingLink: calendlyBaseUrl,\n    qualifiesForCall: true\n  }\n};"
+      }
+    },
+    {
+      "name": "Send Email (HIGH - MailerLite)",
+      "type": "n8n-nodes-base.mailerLite",
+      "typeVersion": 1,
+      "position": [
+        1050,
+        300
+      ],
+      "parameters": {
+        "operation": "createEmail",
+        "emailType": "transactional",
+        "toEmail": "={{ $json.contact.email }}",
+        "subject": "Your AI Strategy Assessment Results - HIGH Priority",
+        "message": "Hi {{ $json.contact.name }},\n\nThank you for completing our AI Strategy Assessment. Based on your responses, you're in the HIGH priority band.\n\nYour Score: {{ $json.score }}/100\n\nYou qualify for a complimentary strategy call. Book your slot here: {{ $schedulingLink }}\n\n[PLACEHOLDER: Full HIGH band email copy from NEU-8]\n\nBest regards,\nNeural Studio Lab Team"
+      }
+    },
+    {
+      "name": "Send Email (MEDIUM - MailerLite)",
+      "type": "n8n-nodes-base.mailerLite",
+      "typeVersion": 1,
+      "position": [
+        1050,
+        500
+      ],
+      "parameters": {
+        "operation": "createEmail",
+        "emailType": "transactional",
+        "toEmail": "={{ $json.contact.email }}",
+        "subject": "Your AI Strategy Assessment Results - MEDIUM Priority",
+        "message": "Hi {{ $json.contact.name }},\n\nThank you for completing our AI Strategy Assessment. Based on your responses, you're in the MEDIUM priority band.\n\nYour Score: {{ $json.score }}/100\n\nYou qualify for a complimentary strategy call. Book your slot here: {{ $schedulingLink }}\n\n[PLACEHOLDER: Full MEDIUM band email copy from NEU-8]\n\nBest regards,\nNeural Studio Lab Team"
+      }
+    },
+    {
+      "name": "Send Email (LOW - MailerLite)",
+      "type": "n8n-nodes-base.mailerLite",
+      "typeVersion": 1,
+      "position": [
+        1050,
+        700
+      ],
+      "parameters": {
+        "operation": "createEmail",
+        "emailType": "transactional",
+        "toEmail": "={{ $json.contact.email }}",
+        "subject": "Your AI Strategy Assessment Results",
+        "message": "Hi {{ $json.contact.name }},\n\nThank you for completing our AI Strategy Assessment. Based on your responses, you're in the LOW priority band at this time.\n\nYour Score: {{ $json.score }}/100\n\n[PLACEHOLDER: Full LOW band nurture email copy from NEU-8]\n\nBest regards,\nNeural Studio Lab Team"
+      }
+    },
+    {
+      "name": "Add/Update Contact (HubSpot)",
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 1,
+      "position": [
+        1250,
+        300
+      ],
+      "parameters": {
+        "operation": "createOrUpdate",
+        "email": "={{ $json.contact.email }}",
+        "properties": {
+          "firstname": "={{ $json.contact.name.split(' ')[0] }}",
+          "lastname": "={{ $json.contact.name.split(' ').slice(1).join(' ') }}",
+          "company": "={{ $json.contact.company }}",
+          "phone": "={{ $json.contact.phone }}",
+          "ai_maturity_score": "={{ $json.score }}",
+          "assessment_band": "={{ $json.band }}",
+          "assessment_date": "={{ $json.timestamp }}",
+          "lead_source": "={{ $json.metadata.source || 'Website Assessment' }}"
+        }
+      }
+    },
+    {
+      "name": "CRM Write Fallback (LOW band)",
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 1,
+      "position": [
+        1250,
+        700
+      ],
+      "parameters": {
+        "operation": "createOrUpdate",
+        "email": "={{ $json.contact.email }}",
+        "properties": {
+          "firstname": "={{ $json.contact.name.split(' ')[0] }}",
+          "lastname": "={{ $json.contact.name.split(' ').slice(1).join(' ') }}",
+          "company": "={{ $json.contact.company }}",
+          "ai_maturity_score": "={{ $json.score }}",
+          "assessment_band": "={{ $json.band }}",
+          "assessment_date": "={{ $json.timestamp }}",
+          "lead_source": "={{ $json.metadata.source || 'Website Assessment' }}"
+        }
+      }
+    },
+    {
+      "name": "Schedule Nurture Email (7 days)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [
+        1450,
+        700
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "days",
+              "amount": 7
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Send Nurture Email (MailerLite)",
+      "type": "n8n-nodes-base.mailerLite",
+      "typeVersion": 1,
+      "position": [
+        1650,
+        700
+      ],
+      "parameters": {
+        "operation": "createEmail",
+        "emailType": "transactional",
+        "toEmail": "={{ $json.contact.email }}",
+        "subject": "Continue Your AI Journey - Resources Inside",
+        "message": "Hi {{ $json.contact.name }},\n\n[PLACEHOLDER: Nurture sequence email copy from NEU-8]\n\nBest regards,\nNeural Studio Lab Team"
+      }
+    },
+    {
+      "name": "Success Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1250,
+        100
+      ],
+      "parameters": {
+        "httpCode": "200",
+        "responseBody": "={ \"status\": \"success\", \"message\": \"Submission received\", \"submissionId\": \"{{ $json.submissionId }}\", \"band\": \"{{ $json.band }}\" }"
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Validate Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Payload": {
+      "main": [
+        [
+          {
+            "node": "Score Assessment (STUB - Replace with NEU-5 Model)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Score Assessment (STUB - Replace with NEU-5 Model)": {
+      "main": [
+        [
+          {
+            "node": "Route by Band",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route by Band": {
+      "main": [
+        [
+          {
+            "node": "Add Scheduling Link",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send Email (MEDIUM - MailerLite)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send Email (LOW - MailerLite)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add Scheduling Link": {
+      "main": [
+        [
+          {
+            "node": "Send Email (HIGH - MailerLite)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Email (HIGH - MailerLite)": {
+      "main": [
+        [
+          {
+            "node": "Add/Update Contact (HubSpot)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Email (MEDIUM - MailerLite)": {
+      "main": [
+        [
+          {
+            "node": "Add/Update Contact (HubSpot)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Email (LOW - MailerLite)": {
+      "main": [
+        [
+          {
+            "node": "CRM Write Fallback (LOW band)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add/Update Contact (HubSpot)": {
+      "main": [
+        [
+          {
+            "node": "Success Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CRM Write Fallback (LOW band)": {
+      "main": [
+        [
+          {
+            "node": "Schedule Nurture Email (7 days)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
